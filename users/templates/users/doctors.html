@@ -1,0 +1,113 @@
+{% extends "users/layout.html" %}
+{% load static %}
+{% block body %}
+
+<style>
+body {
+  background-image: url('{% static 'users/bg_home.jpg' %}');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+.form-inline
+{
+  font-size: 38px;
+  font-family: "Montserrat", sans-serif;
+  color: white;
+  text-decoration: none;
+}
+</style>
+<div class="mx-auto my-4" style="width: 600px;">
+  
+<form action="{% url 'doctors' %}" method="POST" class="form-inline">
+{% csrf_token %}
+  <label class="my-1 mr-2" for="inlineFormCustomSelectPref" >Speciality</label>
+  <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="speciality">
+    <option selected>Choose Speciality</option>
+    {% for department in departments%}
+    <option value={{department.id}}>{{department.id}} : {{department.department}}</option>
+    {% endfor %}
+  </select>
+  <button type="submit" class="btn btn-primary my-1">Submit</button>
+</form>
+</div>
+<div class="container">
+  <div class="row">
+    
+{% for doctors in doctor %}
+<div class="card mx-1 my-2" style="width: 17rem;">
+  <img src="{% static 'users/doc.png' %}" class="card-img-top" alt="...">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item " style="text-align:center">Dr. {{doctors.user.first_name}} {{doctors.user.last_name}}</li>
+    </ul>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item " style="text-align:center">
+    Consultant<br> {{doctors.department}}
+    </li>
+  </ul>
+  <div class="card-body">
+    <a href="{% url 'appointment' doctors.id %}" class="card-link ml-5 pl-2">Book Appointmnet</a>
+  </div>
+</div>
+{% endfor %}
+{% comment %} <div class="card mx-1 my-2" style="width: 17rem;">
+  <img src="{% static 'users/doc.png' %}" class="card-img-top" alt="...">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item " style="text-align:center">Dr. Someone</li>
+    </ul>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item " style="text-align:center">
+    Consultant<br> Pulmonology
+    </li>
+  </ul>
+  <div class="card-body">
+    <a href="#" class="card-link ml-5 pl-2">Book Appointmnet</a>
+  </div>
+</div>
+
+<div class="card mx-1 my-2" style="width: 17rem;">
+  <img src="{% static 'users/doc.png' %}" class="card-img-top" alt="...">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item " style="text-align:center">Dr. Someone</li>
+    </ul>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item " style="text-align:center">
+    Consultant<br> Pulmonology
+    </li>
+  </ul>
+  <div class="card-body">
+    <a href="#" class="card-link ml-5 pl-2">Book Appointmnet</a>
+  </div>
+</div>
+
+<div class="card mx-1 my-2" style="width: 17rem;">
+  <img src="{% static 'users/doc.png' %}" class="card-img-top" alt="...">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item " style="text-align:center">Dr. Someone</li>
+    </ul>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item " style="text-align:center">
+    Consultant<br> Pulmonology
+    </li>
+  </ul>
+  <div class="card-body">
+    <a href="#" class="card-link ml-5 pl-2">Book Appointmnet</a>
+  </div>
+</div>
+
+<div class="card mx-1 my-2" style="width: 17rem;">
+  <img src="{% static 'users/doc.png' %}" class="card-img-top" alt="...">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item " style="text-align:center">Dr. Someone</li>
+    </ul>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item " style="text-align:center">
+    Consultant<br> Pulmonology
+    </li>
+  </ul>
+  <div class="card-body">
+    <a href="#" class="card-link ml-5 pl-2">Book Appointmnet</a>
+  </div>
+</div> {% endcomment %}
+</div>
+{% endblock %}
